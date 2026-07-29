@@ -4,15 +4,6 @@ This project demonstrates the deployment of a highly available two-tier architec
 
 The architecture is based on a lab created by Lucy Wang (Tech With Lucy). Beyond implementing the solution, my main goal was to understand the reasoning behind each architectural decision and document the concepts learned throughout the project.
 
----
-
-## Architecture
-
-<p align="center">
-  <img src="./images/architecture.png" width="900">
-</p>
-
----
 
 ## Business Problem
 
@@ -27,8 +18,6 @@ Although simple to deploy, this architecture presents several limitations:
 - Limited scalability
 
 The objective of this project was to redesign the infrastructure to improve availability, security, and scalability while keeping the application itself unchanged.
-
----
 
 ## Solution Overview
 
@@ -48,7 +37,11 @@ The infrastructure consists of:
 - Amazon RDS for MySQL
 - Bastion Host
 
----
+## Architecture
+
+The following diagram illustrates the high-level architecture of the solution after the redesign, highlighting how the networking, load balancing, compute, and database layers work together to improve the application's availability, security, and scalability.
+
+  ![Diagram](./images/project-architecture.png)
 
 ## Implementation
 
@@ -85,8 +78,6 @@ Amazon RDS is deployed exclusively inside these private subnets to reduce its ex
 
 > 📷 **VPC overview (subnets, route tables, and Internet Gateway)**
 
----
-
 ### Security
 
 Another important concept I learned was how Security Groups work together to control communication between different layers of the application.
@@ -120,8 +111,6 @@ This prevents any external client from accessing the database directly.
 
 > 📷 **Security Groups configuration**
 
----
-
 ### Database
 
 The database layer was deployed using Amazon RDS for MySQL.
@@ -135,8 +124,6 @@ Some important security decisions include:
 Since the database is not publicly accessible, a Bastion Host was used for administrative tasks such as creating the database schema and connecting through MySQL Workbench.
 
 > 📷 **Amazon RDS configuration**
-
----
 
 ### Compute Layer
 
@@ -154,8 +141,6 @@ The deployment was intentionally performed manually, as the objective of this pr
 
 > 📷 **Application running on the EC2 instances**
 
----
-
 ### Load Balancer
 
 Traffic is distributed using an Application Load Balancer.
@@ -169,8 +154,6 @@ Configuration includes:
 If one instance becomes unhealthy, traffic is automatically routed to the remaining healthy instance.
 
 > 📷 **Application Load Balancer configuration**
-
----
 
 ## High Availability
 
@@ -186,8 +169,6 @@ High availability is achieved through:
 The database remains deployed as a Single-AZ RDS instance to reduce costs for this learning project.
 
 In a production environment, enabling Amazon RDS Multi-AZ would provide automatic failover and improve database availability.
-
----
 
 ## What I Learned
 
